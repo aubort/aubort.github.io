@@ -59,11 +59,22 @@ $ sudo diskutil unmount /dev/disk1s1
 The `dd` command will flah the given drive
 
 ```
-$ sudo dd if=~/path/to/image/file of=/dev/rdisk1
+$ sudo dd if=path/to/image/file of=/dev/rdisk1 bs=1m
 ```
 This process takes a few minutes...
 
 + Once the process is complete, eject the device and insert it in the ODROID device.
+
 ```
 $ sudo diskutil eject /dev/rdisk1
 ```
+
+# Connecting to the ODROID-C1
+In order to log into the ODROID you will need to find which IP address it has been assigned. You can find the IP address by connecting to your router and checking which addresses have been assigned to the device (It should be called odroid).
+
+Once you have the IP address, you can connect using SSH
+
+```
+$ ssh odroid@<ip-address>
+```
+> note that the default password is "odroid"
