@@ -26,14 +26,14 @@ The image is now ready to be copied to the SD card.
 
 ## Flashing the SD Card
 
-1. List all the filesystems mounted on the computer
++ List all the filesystems mounted on the computer
 ```
 $ df -h
 ```
 This will show a list of filesystems that are mounted on the computer.
 
-1. Insert the SD card in your computer
-1. Check where the card has been mounted using
++ Insert the SD card in your computer
++ Check where the card has been mounted using
 ```
 $ df -h
 ```
@@ -49,11 +49,11 @@ localhost:/3C2XlGbrKOBhdd8EBlhRl8  232Gi  232Gi    0Bi   100%        0        0 
 ```
 In our case, the card we want to flash is the card where the partition `/dev/disk1s1` is located. Since we want to reference the card `disk1s1` relates to `rdisk1`, which we will use for flashing.
 
-1. Unmount the SD card so that it can be flashed
++ Unmount the SD card so that it can be flashed
 ```
 $ sudo diskutil unmount /dev/disk1s1
 ```
-1. Flash the card
++ Flash the card
 > DANGER Always double check that you are flashing the correct drive. The `dd` command could erase your HD if wrongly used!
 The `dd` command will flah the given drive
 
@@ -62,7 +62,7 @@ $ sudo dd if=~/path/to/image/file of=/dev/rdisk1
 ```
 This process takes a few minutes...
 
-6. Once the process is complete, eject the device and insert it in the ODROID device.
++ Once the process is complete, eject the device and insert it in the ODROID device.
 ```
 $ sudo diskutil eject /dev/rdisk1
 ```
