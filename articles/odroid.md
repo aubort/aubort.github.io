@@ -54,6 +54,7 @@ In our case, the card we want to flash is the card where the partition `/dev/dis
 $ sudo diskutil unmount /dev/disk1s1
 ```
 + Flash the card
+
 > DANGER Always double check that you are flashing the correct drive. The `dd` command could erase your HD if wrongly used!
 The `dd` command will flah the given drive
 
