@@ -36,51 +36,61 @@ brew install xz
 Now extract the image from the compressed file that you just downloaded
 
 ```
-xz -d <filename.img.xz>
+xz -d ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz
 ```
 The image is now ready to be copied to the SD card.
 
 ## Flashing the SD Card
 
-+ List all the filesystems mounted on the computer
+List all the filesystems mounted on the computer. This will show a list of filesystems that are mounted on the computer.
 ```
-df -h
-```
-This will show a list of filesystems that are mounted on the computer.
+$ df -h
 
-+ Insert the SD card in your computer
-+ Check where the card has been mounted using
-```
-df -h
-```
-You should be able to compare the output with the previous output and determine which one is the SD card you just inserted.
-```
 Filesystem                          Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
-/dev/disk0s2                       232Gi  151Gi   81Gi    65% 39550536 21289206   65%   /
-devfs                              186Ki  186Ki    0Bi   100%      642        0  100%   /dev
+/dev/disk0s2                       232Gi  160Gi   72Gi    69% 41899663 18940079   69%   /
+devfs                              180Ki  180Ki    0Bi   100%      625        0  100%   /dev
 map -hosts                           0Bi    0Bi    0Bi   100%        0        0  100%   /net
 map auto_home                        0Bi    0Bi    0Bi   100%        0        0  100%   /home
-localhost:/3C2XlGbrKOBhdd8EBlhRl8  232Gi  232Gi    0Bi   100%        0        0  100%   /Volumes/MobileBackups
-/dev/disk1s1                       2.9Gi  512Ki  2.9Gi     1%        0        0  100%   /Volumes/VFAT
+
 ```
 
-In our case, the card we want to flash is the card where the partition `/dev/disk1s1` is located. Since we want to reference the card `disk1s1` relates to `rdisk1`, which we will use for flashing.
+Now insert the SD card in your computer and run the same command again.
 
-+ Unmount the SD card so that it can be flashed
+```
+$ df -h
+
+Filesystem                          Size   Used  Avail Capacity  iused    ifree %iused  Mounted on
+/dev/disk0s2                       232Gi  160Gi   72Gi    69% 41899761 18939981   69%   /
+devfs                              182Ki  182Ki    0Bi   100%      631        0  100%   /dev
+map -hosts                           0Bi    0Bi    0Bi   100%        0        0  100%   /net
+map auto_home                        0Bi    0Bi    0Bi   100%        0        0  100%   /home
+/dev/disk1s1                        14Gi  2.4Mi   14Gi     1%        0        0  100%   /Volumes/UNTITLED
+```
+
+You can see here a new line - `/dev/disk1s1/` - which is a partition on the SD card I just insterted. You can also verify that the size (14Gi in our case) corresponds to the size printed on the SD card itself.
+
+Now that we have found the filesystem, we can determine which device is the card itself. That's fairly easy, `disk1s1` becomes `rdisk1`. 
+
+In order to flash the card, the partition need to be unmounted
 ```
 sudo diskutil unmount /dev/disk1s1
 ```
-+ Flash the card
+
+You can now proceed with flashing of the card
 
 > DANGER Always double check that you are flashing the correct drive. The `dd` command could erase your HD if wrongly used!
+
 The `dd` command will flah the given drive
 
 ```
+# WARNING - Make sure to change the of=/dev/rdisk1 to match YOUR SD CARD!
+
 sudo dd if=path/to/image/file of=/dev/rdisk1 bs=1m
+
 ```
 This process takes a few minutes...
 
-+ Once the process is complete, eject the device and insert it in the ODROID device.
+Once the process is complete, eject the device and insert it in the ODROID device.
 
 ```
 sudo diskutil eject /dev/rdisk1
