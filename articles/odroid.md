@@ -154,3 +154,25 @@ Once it has rebooted, you should be able to ssh using the new IP address
 ```
 ssh odroid@192.168.0.100
 ```
+
+In order to make it easier to connect to you ODROID, you can edit your `hosts` file on your local machine so that you can use the hostname instead of the IP address to ssh into your ODROID. 
+
+Open the `hosts` file 
+```
+sudo vi /etc/hosts
+```
+
+and add the following line, save and quit
+
+```
+192.168.0.100   odroid odroid.local
+```
+
+You should now be able to use the following commands to ssh into your ODROID
+```
+ssh odroid@odroid
+
+# or 
+
+ssh odroid@odroid.local
+```
