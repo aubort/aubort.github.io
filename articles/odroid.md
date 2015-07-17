@@ -4,11 +4,27 @@ This article is a short guide about how to get started with a [Odroid single-boa
 # Flashing Odroid OS on a blank SD Card
 
 ## Getting the OS image
-The images can be downloaded from [this Odroid wiki page](http://odroid.com/dokuwiki/doku.php?id=en:c1_release_linux_ubuntu). In our example, we will get the version 1.4.2 from [here](http://east.us.odroid.in/ubuntu_14.04lts/ubuntu-14.04.2lts-lubuntu-odroid-c1-20150320.img.xz).
+The images can be downloaded from [this Odroid wiki page](http://odroid.com/dokuwiki/doku.php?id=en:c1_release_linux_ubuntu). In our example, we will get the version 14.4.2 from [here](http://east.us.odroid.in/ubuntu_14.04lts/ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz).
 
 ```
 cd ~/
-curl -O http://east.us.odroid.in/ubuntu_14.04lts/ubuntu-14.04.2lts-lubuntu-odroid-c1-20150320.img.xz
+curl -O http://east.us.odroid.in/ubuntu_14.04lts/ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz
+```
+
+Once the image has been downloaded, verify its integrity using the md5 checksum. Just use the identical url as above and add `.md5sum` extension.
+
+```
+$ curl http://east.us.odroid.in/ubuntu_14.04lts/ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz.md5sum
+
+59c0b5fb9089bbfca337ad2fbd063105  ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz
+```
+
+Now you can compare the md5 hash of the downloaded image file to the value provided in the md5sum file. Just use the following command on the image file and compare with the output above.
+
+```
+$ md5 ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz
+
+MD5 (ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz) = 59c0b5fb9089bbfca337ad2fbd063105
 ```
 
 From there, you will need to uncompress the xz file. You can use [homebrew](http://brew.sh/) to install the xz tool.
@@ -17,7 +33,7 @@ From there, you will need to uncompress the xz file. You can use [homebrew](http
 brew install xz
 ```
 
-From there extract the image file from the compressed file that you just downloaded
+Now extract the image from the compressed file that you just downloaded
 
 ```
 xz -d <filename.img.xz>
@@ -47,6 +63,7 @@ map auto_home                        0Bi    0Bi    0Bi   100%        0        0 
 localhost:/3C2XlGbrKOBhdd8EBlhRl8  232Gi  232Gi    0Bi   100%        0        0  100%   /Volumes/MobileBackups
 /dev/disk1s1                       2.9Gi  512Ki  2.9Gi     1%        0        0  100%   /Volumes/VFAT
 ```
+
 In our case, the card we want to flash is the card where the partition `/dev/disk1s1` is located. Since we want to reference the card `disk1s1` relates to `rdisk1`, which we will use for flashing.
 
 + Unmount the SD card so that it can be flashed
