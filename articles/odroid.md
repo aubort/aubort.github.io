@@ -1,3 +1,5 @@
+[TOC]
+
 # Overview
 This article is a short guide about how to get started with a [Odroid single-board computer](http://www.hardkernel.com/main/main.php). In this example, we are using an ODROID-C1 and working from a Mac OS computer.  
 
@@ -154,3 +156,5 @@ Once it has rebooted, you should be able to ssh using the new IP address
 ```
 ssh odroid@192.168.0.100
 ```
+
+
