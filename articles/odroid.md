@@ -36,8 +36,11 @@ brew install xz
 Now extract the image from the compressed file that you just downloaded
 
 ```
-xz -d ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz
+xz ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img.xz --decompress
 ```
+
+> Add the `--keep` flag to keep the input file. By default the compressed file is deleted.
+
 The image is now ready to be copied to the SD card.
 
 ## Flashing the SD Card
@@ -85,15 +88,23 @@ The `dd` command will flah the given drive
 ```
 # WARNING - Make sure to change the of=/dev/rdisk1 to match YOUR SD CARD!
 
-sudo dd if=path/to/image/file of=/dev/rdisk1 bs=1m
+sudo dd if=ubuntu-14.04.2lts-lubuntu-odroid-c1-20150401.img of=/dev/rdisk1 bs=1m
 
 ```
-This process takes a few minutes...
-
-Once the process is complete, eject the device and insert it in the ODROID device.
+This process takes a few minutes and should output something similar to this if successful
 
 ```
-sudo diskutil eject /dev/rdisk1
+4689+0 records in
+4689+0 records out
+4916772864 bytes transferred in 474.193160 secs (10368713 bytes/sec)
+```
+
+Now eject the drive and insert it in the ODROID device.
+
+```
+$ sudo diskutil eject /dev/rdisk1
+
+Disk /dev/rdisk1 ejected
 ```
 
 # Connecting to the ODROID-C1
@@ -107,15 +118,10 @@ ssh odroid@<ip-address>
 > note that the default password is "odroid"
 
 # Install vim editor
-For editing text/configuration files, you will need to install vim editor. First update `apt-get`.
+For editing text/configuration files, you will need to install vim editor.  Use the following command to update apt-get and install vim.
 
 ```
-sudo apt-get update
-```
-
-Then install vim
-```
-sudo apt-get install vim
+sudo apt-get update && sudo apt-get install vim
 ```
 
 # Setting a static IP address for the ODROID
